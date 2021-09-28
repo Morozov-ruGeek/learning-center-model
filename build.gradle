@@ -1,4 +1,6 @@
 plugins {
+    id 'java-library'
+    id 'maven-publish'
     id 'java'
 }
 
@@ -9,11 +11,39 @@ repositories {
     mavenCentral()
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+tasks.named('wrapper'){
+    gradleVersion = '7.1'
+}
+
+task successBuild() {
+}
+
+successBuild.doLast {
+    println 'Success Build'
+}
+
+tasks.named('build') {
+    finalizedBy('successBuild')
 }

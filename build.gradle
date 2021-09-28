@@ -33,10 +33,15 @@ test {
     useJUnitPlatform()
 }
 
+tasks.named('wrapper'){
+    gradleVersion = '7.1'
+}
+
 task successBuild() {
-    doLast {
-        println 'Success Build'
-    }
+}
+
+successBuild.doLast {
+    println 'Success Build'
 }
 
 tasks.named('build') {
